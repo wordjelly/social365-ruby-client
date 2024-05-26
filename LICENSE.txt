@@ -1,0 +1,2 @@
+THIS SOFTWARE IS GOVERNED BY THE AGPLV3 - LICENSE TEXT IS LOCATED AT :
+https://www.gnu.org/licenses/agpl-3.0.en.html#license-text
