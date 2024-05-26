@@ -3,7 +3,7 @@
 require_relative "lib/social365/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "social365-ruby-client"
+  spec.name = "social365"
   spec.version = Social365::VERSION
   spec.authors = ["SOCIAL365 DEV Team"]
   spec.email = ["support@social365.live"]
