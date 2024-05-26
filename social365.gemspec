@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Ruby Client to interact with the Social365 API"
   spec.description = "This gem provides a low level client with convenience methods to interact with the www.social365.live API's. The gem is being actively developed and currently supports, only the image creation module."
   spec.homepage = "https://www.social365.live"
-  spec.license = "AGPLV3"
+  spec.license = "AGPL-3.0"
   spec.required_ruby_version = ">= 2.4.0"
 
   spec.metadata["allowed_push_host"] = "www.rubygems.org"
