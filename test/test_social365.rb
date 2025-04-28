@@ -27,21 +27,22 @@ class TestSocial365 < Minitest::Test
     end
   end
 =end
-
   def test_get_article
     client = Social365::Base.new("http://localhost:5000")
     if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
-      article_create_response = client.create_article({
-          "domain_id" => 14,
-          "title" => "test_article"
-        })
-      r = JSON.parse(article_create_response.body)
-      article_id = r["id"]
+      #article_create_response = client.create_article({
+      #    "domain_id" => 1,
+      #    "title" => "test_article"
+      #  })
+      #r = JSON.parse(article_create_response.body)
+      article_id = 2
       article_get_response = client.get_article(article_id)
       r = JSON.parse(article_get_response.body)
       puts r.to_s
     end
   end
+
+  
 
 =begin
   def test_pings_server
@@ -95,5 +96,23 @@ class TestSocial365 < Minitest::Test
 
   end
 =end
+  
+  # lets assume we have a bunch of keywords
+  # first we want to segment them into groups and build sections around those groups.
+  # and build this outline using that.
 
+=begin
+  def test_create_bilirubin_sections
+    client = Social365::Base.new("http://localhost:5000")
+    if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
+      important_keywords = (IO.read("#{Dir.pwd}/resources/bilirubin_keywords.txt"))
+      article_create_response = client.create_article({
+          "domain_id" => 1,
+          "title" => "Bilirubin level 2.1 : Is it dangerous, causes, symptoms, home remedies",
+          "keywords" => "#{important_keywords}"
+        })
+      puts JSON.parse(article_create_response.body)
+    end
+  end
+=end
 end
