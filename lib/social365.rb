@@ -2,7 +2,10 @@
 
 require_relative "social365/version"
 require_relative "social365/image"
+require_relative "social365/article"
+require_relative "social365/log"
 require_relative "social365/base"
+
 
 module Social365
   class Error < StandardError; end

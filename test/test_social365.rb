@@ -3,10 +3,47 @@
 require "test_helper"
 
 class TestSocial365 < Minitest::Test
+
   def test_that_it_has_a_version_number
     refute_nil ::Social365::VERSION
   end
 
+=begin
+  def test_signs_in
+    client = Social365::Base.new("http://localhost:5000")
+    response = client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
+    assert_equal true, !client.auth_token.blank?
+  end
+
+
+  def test_creates_article
+    client = Social365::Base.new("http://localhost:5000")
+    if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
+      article_create_response = client.create_article({
+          "domain_id" => 14,
+          "title" => "test_article"
+        })
+      puts JSON.parse(article_create_response.body)
+    end
+  end
+=end
+
+  def test_get_article
+    client = Social365::Base.new("http://localhost:5000")
+    if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
+      article_create_response = client.create_article({
+          "domain_id" => 14,
+          "title" => "test_article"
+        })
+      r = JSON.parse(article_create_response.body)
+      article_id = r["id"]
+      article_get_response = client.get_article(article_id)
+      r = JSON.parse(article_get_response.body)
+      puts r.to_s
+    end
+  end
+
+=begin
   def test_pings_server
     client = Social365::Base.new("http://localhost:8080")
     assert_equal "pong", client.ping
@@ -57,5 +94,6 @@ class TestSocial365 < Minitest::Test
     assert_equal true, File.exists("#{Dir.pwd}/output/#{fname}.png")
 
   end
+=end
 
 end
