@@ -9,6 +9,43 @@ class TestSocial365 < Minitest::Test
   end
 
 =begin
+  def test_creates_article_from_keywords
+    client = Social365::Base.new("http://localhost:5000")
+    if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
+
+      article_create_response = client.create_from_keywords_file(14, "Bilirubin 2.1 is it dangerous", "#{Dir.pwd}/resources/bilirubin_keywords.txt","#{Dir.pwd}/resources/")
+        
+      puts "response code -- "
+      puts article_create_response.code.to_s
+    end
+  end
+=end
+
+  def test_get_and_resave_locally
+    article_json_file_path = "#{Dir.pwd}/resources/Bilirubin-2.1-is-it-dangerous.json"
+    client = Social365::Base.new("http://localhost:5000")
+    if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
+      client.get_and_resave_locally(article_json_file_path)
+    end
+  end
+
+
+=begin
+  def test_update_article_from_file
+    article_json_file_path = "#{Dir.pwd}/resources/Bilirubin-2.1-is-it-dangerous.json"
+    client = Social365::Base.new("http://localhost:5000")
+    if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
+      client.update_article_from_file(article_json_file_path)
+    end
+
+  end
+=end
+
+
+
+
+
+=begin
   def test_signs_in
     client = Social365::Base.new("http://localhost:5000")
     response = client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
@@ -26,7 +63,7 @@ class TestSocial365 < Minitest::Test
       puts JSON.parse(article_create_response.body)
     end
   end
-=end
+
   def test_get_article
     client = Social365::Base.new("http://localhost:5000")
     if client.set_auth_token(ENV["SOCIAL_365_ADMIN_USER"],ENV["SOCIAL_365_ADMIN_PASSWORD"])
@@ -43,7 +80,7 @@ class TestSocial365 < Minitest::Test
   end
 
   
-
+=end
 =begin
   def test_pings_server
     client = Social365::Base.new("http://localhost:8080")

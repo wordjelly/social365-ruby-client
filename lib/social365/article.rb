@@ -52,7 +52,7 @@ module Social365::Article
 			raise "id is missing" if article["id"].blank?
 
 			response = Typhoeus.put(
-				  "#{self.host}/article/#{article['id']}.json",
+				  "#{self.host}/articles/#{article['id']}.json",
 		      headers: {
 		      	"Content-Type" => "application/json",
 		      	"X-User-Email" => self.email,
@@ -71,20 +71,22 @@ module Social365::Article
 
 	################# CONVENIENCE METHODS TO MAKE TI EASY TO CREATE ARTICLES #########
 
-	def create_from_keywords_file(keywords_file_path,output_directory)
-		title = File.basename(keywords_file,".txt")
+	def create_from_keywords_file(domain_id, title, keywords_file_path,output_directory)
+		
 		article = {
+			"domain_id" => domain_id,
 			"title" => title,
-			"keywords" => IO.read(keywords_file)
+			"keywords" => IO.read(keywords_file_path)
 		}
 		article_create_response = create_article(article)
-		article_content = JSON.parse(article_create_response)
+		article_content = JSON.parse(article_create_response.body)
 		if article_content["build_requested_at"]
 			if output_directory
-				fpath = output_directory + "/#{title.gsub(/s/,'-')}.json" 
+				fpath = output_directory + "/#{title.gsub(/\s/,'-')}.json" 
 				IO.write(fpath, JSON.pretty_generate(article_content))
 			end
 		end
+		article_create_response
 	end
 
 	def get_and_resave_locally(article_json_file_path)
